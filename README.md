@@ -1,6 +1,6 @@
 # prettyzig
 
-A simple and easy to use library for colored output.
+A simple and easy to use library for colored output. Written with zig 0.13
 
 # Examples
 
@@ -11,12 +11,23 @@ const std = @import("std");
 const pretty = @import("pretty");
 
 pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{ .stack_trace_frames = 50 }){};
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) {
+            std.log.err("memory leak", .{});
+        }
+    }
+
+    // const allocator = gpa.allocator();
+
     var printer = pretty.Printer.init();
 
-    printer.print("Hello, World!")
+    printer.print("Hello, World!\n")
         .color(.brightRed)
         .background(.black)
         .style(.{ .bold, .underline })
+    // .enable_debug()
         .run();
 }
 
@@ -47,29 +58,44 @@ pub const CatppuccinMocha = struct {
 };
 
 pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{ .stack_trace_frames = 50 }){};
+    defer {
+        const deinit_status = gpa.deinit();
+        if (deinit_status == .leak) {
+            std.log.err("memory leak", .{});
+        }
+    }
+
+    // const allocator = gpa.allocator();
+
     var printer = pretty.Printer.init();
 
-    printer.print("Normal text")
+    printer.print("Normal text\n")
         .run();
 
-    printer.print("Rosewater")
+    printer.print("Rosewater\n")
         .color_rgb(CatppuccinMocha.rosewater)
         .style(.{.bold})
         .run();
 
-    printer.print("Flamingo")
+    printer.print("Flamingo\n")
         .color_rgb(CatppuccinMocha.flamingo)
         .style(.{.italic})
         .run();
 
-    printer.print("Mauve")
+    printer.print("Mauve\n")
         .color_rgb(CatppuccinMocha.mauve)
         .style(.{ .bold, .underline })
         .run();
 
-    printer.print("Green")
+    printer.print("Green\n")
         .color_rgb(CatppuccinMocha.green)
         .style(.{ .bold, .italic })
+        .run();
+
+    printer.print("Orange\n")
+        .color_rgb(CatppuccinMocha.orange)
+        .style(.{ .italic, .strikethrough })
         .run();
 }
 
