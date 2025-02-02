@@ -1,6 +1,6 @@
 const std = @import("std");
-const pretty = @import("pretty");
-const RGB = pretty.RGB;
+const prettyzig = @import("prettyzig");
+const RGB = prettyzig.RGB;
 
 pub const CatppuccinMocha = struct {
     pub const rosewater = RGB.init(255, 239, 217); // #fdf0db
@@ -20,17 +20,7 @@ pub const CatppuccinMocha = struct {
 };
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{ .stack_trace_frames = 50 }){};
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) {
-            std.log.err("memory leak", .{});
-        }
-    }
-
-    // const allocator = gpa.allocator();
-
-    var printer = pretty.Printer.init();
+    var printer = prettyzig.Printer.init();
 
     printer.print("Normal text\n")
         .run();

@@ -2,32 +2,35 @@
 
 A simple and easy to use library for colored output. Written with zig 0.13
 
+# Installation
+
+```sh
+# Version of prettyzig that works with zig 0.13
+zig fetch --save git+https://github.com/Hejsil/zig-clap
+```
+
+Then add the following to `build.zig`:
+
+```zig
+const clap = b.dependency("prettyzig", .{});
+exe.root_module.addImport("prettyzig", clap.module("prettyzig"));
+```
+
 # Examples
 
 ## Hello World
 
 ```zig
 const std = @import("std");
-const pretty = @import("pretty");
+const prettyzig = @import("prettyzig");
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{ .stack_trace_frames = 50 }){};
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) {
-            std.log.err("memory leak", .{});
-        }
-    }
-
-    // const allocator = gpa.allocator();
-
-    var printer = pretty.Printer.init();
+    var printer = prettyzig.Printer.init();
 
     printer.print("Hello, World!\n")
         .color(.brightRed)
         .background(.black)
         .style(.{ .bold, .underline })
-    // .enable_debug()
         .run();
 }
 
@@ -37,8 +40,8 @@ pub fn main() !void {
 
 ```zig
 const std = @import("std");
-const pretty = @import("pretty");
-const RGB = pretty.RGB;
+const prettyzig = @import("prettyzig");
+const RGB = prettyzig.RGB;
 
 pub const CatppuccinMocha = struct {
     pub const rosewater = RGB.init(255, 239, 217); // #fdf0db
@@ -58,17 +61,7 @@ pub const CatppuccinMocha = struct {
 };
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{ .stack_trace_frames = 50 }){};
-    defer {
-        const deinit_status = gpa.deinit();
-        if (deinit_status == .leak) {
-            std.log.err("memory leak", .{});
-        }
-    }
-
-    // const allocator = gpa.allocator();
-
-    var printer = pretty.Printer.init();
+    var printer = prettyzig.Printer.init();
 
     printer.print("Normal text\n")
         .run();

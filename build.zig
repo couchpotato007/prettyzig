@@ -6,7 +6,7 @@ pub fn build(b: *std.Build) void {
     const root_source_file = b.path("src/pretty.zig");
 
     // Module
-    const pretty_mod = b.addModule("pretty", .{
+    const pretty_mod = b.addModule("prettyzig", .{
         .root_source_file = root_source_file,
         .target = target,
         .optimize = optimize,
@@ -37,7 +37,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    example.root_module.addImport("pretty", pretty_mod);
+    example.root_module.addImport("prettyzig", pretty_mod);
 
     const example_run = b.addRunArtifact(example);
     example_step.dependOn(&example_run.step);
