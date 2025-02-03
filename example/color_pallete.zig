@@ -20,33 +20,17 @@ pub const CatppuccinMocha = struct {
 };
 
 pub fn main() !void {
-    var printer = prettyzig.Printer.init();
+    const stdout = std.io.getStdOut().writer();
 
-    printer.print("Normal text\n")
-        .run();
+    try prettyzig.print(stdout, "Normal text\n", .{});
 
-    printer.print("Rosewater\n")
-        .color_rgb(CatppuccinMocha.rosewater)
-        .style(.{.bold})
-        .run();
+    try prettyzig.print(stdout, "Rosewater\n", .{ .color = .{ .rgb = CatppuccinMocha.rosewater }, .styles = &.{.bold} });
 
-    printer.print("Flamingo\n")
-        .color_rgb(CatppuccinMocha.flamingo)
-        .style(.{.italic})
-        .run();
+    try prettyzig.print(stdout, "Flamingo\n", .{ .color = .{ .rgb = CatppuccinMocha.flamingo }, .styles = &.{.italic} });
 
-    printer.print("Mauve\n")
-        .color_rgb(CatppuccinMocha.mauve)
-        .style(.{ .bold, .underline })
-        .run();
+    try prettyzig.print(stdout, "Mauve\n", .{ .color = .{ .rgb = CatppuccinMocha.mauve }, .styles = &.{ .bold, .underline } });
 
-    printer.print("Green\n")
-        .color_rgb(CatppuccinMocha.green)
-        .style(.{ .bold, .italic })
-        .run();
+    try prettyzig.print(stdout, "Green\n", .{ .color = .{ .rgb = CatppuccinMocha.green }, .styles = &.{ .bold, .italic } });
 
-    printer.print("Orange\n")
-        .color_rgb(CatppuccinMocha.orange)
-        .style(.{ .italic, .strikethrough })
-        .run();
+    try prettyzig.print(stdout, "Orange\n", .{ .color = .{ .rgb = CatppuccinMocha.orange }, .styles = &.{ .italic, .strikethrough } });
 }

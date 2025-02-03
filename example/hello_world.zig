@@ -2,11 +2,11 @@ const std = @import("std");
 const prettyzig = @import("prettyzig");
 
 pub fn main() !void {
-    var printer = prettyzig.Printer.init();
+    const stdout = std.io.getStdOut().writer();
 
-    printer.print("Hello, World!\n")
-        .color(.brightRed)
-        .background(.black)
-        .style(.{ .bold, .underline })
-        .run();
+    try prettyzig.print(stdout, "Hello, World!\n", .{
+        .color = .{ .ansi = .brightRed },
+        .background = .{ .ansi = .black },
+        .styles = &.{ .bold, .underline },
+    });
 }
