@@ -1,11 +1,11 @@
 # prettyzig
 
-A simple and easy to use library for colored output. Written with zig 0.13
+A simple and easy to use library for colored output. Written with zig 0.14
 
 # Installation
 
 ```sh
-# Version of prettyzig that works with zig 0.13
+# Version of prettyzig that works with zig 0.14
 zig fetch --save git+https://github.com/couchpotato007/prettyzig
 ```
 
